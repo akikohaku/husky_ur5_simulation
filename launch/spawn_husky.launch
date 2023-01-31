@@ -56,7 +56,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <!-- For single master bringup, run robot control on the gazebo master -->
     <!-- Note that husky_description/description.launch is already included in husky_control/control.launch. -->
     <group unless="$(arg multimaster)">
-      <include file="$(find husky_control)/launch/control.launch">
+      <include file="$(find husky_ur5)/launch/control.launch">
         <arg name="multimaster" value="$(arg multimaster)"/>
       </include>
       <include file="$(find husky_control)/launch/teleop.launch">
