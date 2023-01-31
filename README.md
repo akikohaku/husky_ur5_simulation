@@ -15,15 +15,15 @@ catkin build
 
 ## How to use
 
-###launch robot
+### launch robot
 ```
 roslaunch husky_ur5 husky_empty_world.launch
 ```
 
-###launch planning class
+### launch planning class
 ```
 roslaunch husky_ur5 moveit_planning_execution.launch sim:=true
 ```
 
-###plan and execute arm
+### plan and execute arm
 Add motionplanning in rviz and start planning.
