@@ -1,5 +1,5 @@
 <launch>
-  <arg name="sim" default="false" />
+  <arg name="sim" default="true" />
   <arg name="debug" default="false" />
 
   <!-- Remap follow_joint_trajectory -->

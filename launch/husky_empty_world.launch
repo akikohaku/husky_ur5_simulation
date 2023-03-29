@@ -25,7 +25,7 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
   <arg name="arm_description_file" default="$(dirname)/inc/load_ur5.launch.xml" doc="Launch file which populates the 'robot_description' parameter."/>
-  <arg name="world_name" default="worlds/empty.world"/>
+  <arg name="world_name" default="$(find husky_ur5)/world/test_world.world"/>
   <arg name="joint_limit_params" default="$(find husky_ur5)/config/ur5/joint_limits.yaml"/>
   <arg name="kinematics_params" default="$(find husky_ur5)/config/ur5/default_kinematics.yaml"/>
   <arg name="physical_params" default="$(find husky_ur5)/config/ur5/physical_parameters.yaml"/>
@@ -73,4 +73,26 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
   <!-- RViz -->
   <arg name="rviz" default="true"/>
   <node if="$(arg rviz)" pkg="rviz" type="rviz" name="$(anon rviz)" respawn="false" output="screen" args="-d $(find velodyne_description)/rviz/example.rviz" />
+
+
+  <include file="$(find husky_navigation)/launch/move_base_mapless_demo.launch">
+  </include>
+
+  <include file="$(find husky_ur5)/launch/octomap.launch">
+  </include>
+
+  <arg name="scan_topic" default="$(eval optenv('HUSKY_LASER_TOPIC', 'front/scan'))" />
+
+  <!--- Run gmapping -->
+  <include file="$(find husky_navigation)/launch/gmapping.launch">
+    <arg name="scan_topic" value="$(arg scan_topic)" />
+  </include>
+    <!--- Run Move Base -->
+
+  <arg name="sim" default="true" />
+
+  <!--- Run gmapping -->
+  <include file="$(find husky_ur5)/launch/moveit_planning_execution.launch">
+    <arg name="sim" value="$(arg sim)" />
+  </include>
 </launch>
